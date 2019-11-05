@@ -2,8 +2,8 @@ import React from 'react';
 import ProductList from '../../components/ProductList/ProductList';
 import ProductItem from '../../components/ProductItem/ProductItem';
 import {connect} from 'react-redux';
-import callApi from './../../utils/apiCaller';
 import {Link} from 'react-router-dom';
+import {actFetchProductsRequest, actDeleteProductRequest} from "./../../actions/index";
 
 class ProductListPage extends React.Component {
 
@@ -14,31 +14,15 @@ class ProductListPage extends React.Component {
         };
     }
     componentDidMount(){
-        callApi('products', 'GET', null).then(res=>{
-            this.setState({
-                products: res.data
-            });
-        });
+        this.props.fetchAllProducts();
     }
 
     onDelete = (id)=>{
-        callApi(`products/${id}`, 'DELETE', null).then(res=>{
-            //xoa tren api roi thi xoa luon tai local
-            let productArr = [];
-            let {products} = this.state;
-            if(res.status===200){
-                productArr = products.filter((product)=>{
-                    return product.id !==id; 
-                });
-                this.setState({
-                    products: productArr
-                });
-            }
-        });
+        this.props.onDeleteProduct(id);
     }
     render() {
         // var {products} = this.props;
-        var {products} = this.state;
+        var {products} = this.props;
         return (
             <div className="mb-10">
                 <Link to="/product/add" type="button" className="btn btn-info ">
@@ -74,4 +58,16 @@ const mapStateToProps = (state)=>{
         products: state.products,
     }
 };
-export default connect(mapStateToProps,null)(ProductListPage);
+
+const mapDispatchToProps = (dispatch, props)=>{
+    return {
+        fetchAllProducts: ()=>{
+            dispatch(actFetchProductsRequest());
+        },
+        onDeleteProduct: (id)=>{
+            dispatch(actDeleteProductRequest(id));
+        }
+
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ProductListPage);

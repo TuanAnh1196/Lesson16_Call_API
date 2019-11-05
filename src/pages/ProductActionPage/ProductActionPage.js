@@ -1,6 +1,9 @@
 import React from 'react';
 import callApi from './../../utils/apiCaller';
 import { Link } from 'react-router-dom';
+import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from './../../actions/index';
+import { connect } from 'react-redux';
+
 class ProductActionPage extends React.Component {
     constructor(props) {
         super(props);
@@ -21,19 +24,26 @@ class ProductActionPage extends React.Component {
         });
     }
 
-
+    //sau khi render
     componentDidMount() {
+        console.log('componentDidMount');
+
         let { match } = this.props;
         if (match) {
             let id = match.params.id; //lay id tren url
-            callApi(`products/${id}`, "GET", null).then(res => { //lay chi tiet 1 product
-                let data = res.data;
-                this.setState({
-                    id: data.id,
-                    txtName: data.name,
-                    txtPrice: data.price,
-                    chkbStatus: data.status
-                });
+            this.props.onEditProduct(id);
+        }
+    }
+    //nhan props thi goi lycycle
+    componentWillReceiveProps(nextProps) {
+        //set state de hien thi du lieu len form
+        if (nextProps && nextProps.ItemEditing) {
+            let { ItemEditing } = nextProps;
+            this.setState({
+                id: ItemEditing.id,
+                txtName: ItemEditing.name,
+                txtPrice: ItemEditing.price,
+                chkbStatus: ItemEditing.status
             });
         }
     }
@@ -42,27 +52,23 @@ class ProductActionPage extends React.Component {
         e.preventDefault();
         let { id, txtName, txtPrice, chkbStatus } = this.state;
         let { history } = this.props;
+        let product = {
+            id: id, //co the la null thi tu dong tang
+            name: txtName,
+            price: txtPrice,
+            status: chkbStatus
+        }
         //update san pham   
         if (id) {
-            callApi(`products/${id}`,"PUT",{
-                name: txtName,
-                price: txtPrice,
-                status: chkbStatus
-            }).then(res =>{
-                history.goBack();
-            });
-        } else {//them moi san pham
-            callApi('products', 'POST', {
-                name: txtName,
-                price: txtPrice,
-                status: chkbStatus
-            }).then(res => {
-                history.goBack();
-                // history.push('/')
-            });
-        }
+            this.props.onUpdateProduct(product);
+            history.goBack();
 
+        } else {//them moi san pham
+            this.props.onAddProduct(product);
+            history.goBack();
+        }
     }
+
     render() {
         var { txtName, txtPrice, chkbStatus } = this.state;
         return (
@@ -113,5 +119,24 @@ class ProductActionPage extends React.Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        ItemEditing: state.ItemEditing
+    };
+};
 
-export default ProductActionPage;
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onAddProduct: (product) => {
+            dispatch(actAddProductRequest(product));
+        },
+        onEditProduct: (id) => {
+            dispatch(actGetProductRequest(id));
+        },
+        onUpdateProduct: (product)=>{
+            dispatch(actUpdateProductRequest(product));
+        }
+
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProductActionPage);
