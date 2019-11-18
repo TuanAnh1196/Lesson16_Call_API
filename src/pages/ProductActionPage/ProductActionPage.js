@@ -16,9 +16,9 @@ class ProductActionPage extends React.Component {
         };
     }
     onChange = (e) => {
-        var target = e.target;
-        var name = target.name;
-        var value = target.type === 'checkbox' ? target.checked : target.value;
+        let target = e.target;
+        let name = target.name;
+        let value = target.type === 'checkbox' ? target.checked : target.value;
         this.setState({
             [name]: value
         });
@@ -70,7 +70,7 @@ class ProductActionPage extends React.Component {
     }
 
     render() {
-        var { txtName, txtPrice, chkbStatus } = this.state;
+        let { txtName, txtPrice, chkbStatus } = this.state;
         return (
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 

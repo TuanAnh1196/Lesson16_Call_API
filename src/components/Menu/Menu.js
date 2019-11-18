@@ -19,7 +19,7 @@ const MenuLink = ({label,to,activeOnlyWhenExact}) =>{
     return (
         <Route 
             path={to}
-            axact={activeOnlyWhenExact}
+            exact={activeOnlyWhenExact}
             children={({match})=>{
                 var active = match? "active" : "";
                 return (
@@ -54,7 +54,7 @@ class Menu extends React.Component {
                         key={index}
                         label = {menu.name}
                         to={menu.to}
-                        activeOnlyWhenExact={menu.axact}
+                        activeOnlyWhenExact={menu.exact}
                     />
                 );
             });
