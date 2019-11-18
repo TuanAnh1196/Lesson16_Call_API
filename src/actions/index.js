@@ -39,7 +39,7 @@ export const actAddProductRequest= (product)=>{
 }
 export const actAddProduct = (product) =>{
     return {
-        type: Types.DELETE_PRODUCT,
+        type: Types.ADD_PRODUCT,
         product
     }
 }
