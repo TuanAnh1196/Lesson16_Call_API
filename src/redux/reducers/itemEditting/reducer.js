@@ -1,8 +1,8 @@
-import * as Types from '../constants/ActionTypes';
+import * as Types from './actionTypes';
 
 const initialState = {};
 
-const ItemEditing = (state = initialState, action) => {
+const itemEditting = (state = initialState, action) => {
     switch (action.type) {
         case Types.EDIT_PRODUCT:
             return action.product;
@@ -12,4 +12,4 @@ const ItemEditing = (state = initialState, action) => {
 
 };
 
-export default ItemEditing;
+export default itemEditting;

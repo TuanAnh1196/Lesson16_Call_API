@@ -21,7 +21,7 @@ class App extends React.Component {
         );
     }
     showContentMenus = (routes) => {
-        var result = '';
+        let result = '';
         if (routes.length > 0) {
             result = routes.map((route, index) => {
                 return (

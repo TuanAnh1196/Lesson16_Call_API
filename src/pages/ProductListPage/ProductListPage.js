@@ -3,7 +3,7 @@ import ProductList from '../../components/ProductList/ProductList';
 import ProductItem from '../../components/ProductItem/ProductItem';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {actFetchProductsRequest, actDeleteProductRequest} from "./../../actions/index";
+import {actFetchProductsRequest, actDeleteProductRequest} from '../../redux/reducers/products/actions';
 
 class ProductListPage extends React.Component {
 
@@ -21,8 +21,7 @@ class ProductListPage extends React.Component {
         this.props.onDeleteProduct(id);
     }
     render() {
-        // var {products} = this.props;
-        var {products} = this.props;
+        const {products} = this.props;
         return (
             <div className="mb-10">
                 <Link to="/product/add" type="button" className="btn btn-info ">
@@ -35,7 +34,7 @@ class ProductListPage extends React.Component {
         );
     }
     showProducts=(products) =>{
-        var result= null;
+        let result= null;
         if (products.length > 0) {
             result = products.map((product, index) => {
                 return (

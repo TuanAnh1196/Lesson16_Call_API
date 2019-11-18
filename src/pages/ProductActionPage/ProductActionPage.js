@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from './../../actions/index';
+import { actAddProductRequest, actUpdateProductRequest } from '../../redux/reducers/products/actions';
+import { actGetProductRequest } from './../../redux/reducers/itemEditting/actions';
 import { connect } from 'react-redux';
 
 class ProductActionPage extends React.Component {
@@ -27,34 +28,33 @@ class ProductActionPage extends React.Component {
     componentDidMount() {
         console.log('componentDidMount');
 
-        let { match } = this.props;
+        const { match } = this.props;
         if (match) {
-            let id = match.params.id; //lay id tren url
+            const id = match.params.id; //lay id tren url
             this.props.onEditProduct(id);
         }
     }
     //nhan props thi goi lycycle, thuc thi khi nhan 1 props
     componentWillReceiveProps(nextProps) {
         //set state de hien thi du lieu len form
-        if (nextProps && nextProps.ItemEditing) {
-            let { ItemEditing } = nextProps;
-            console.log(ItemEditing);
+        if (nextProps && nextProps.itemEditting) {
+            const { itemEditting } = nextProps;
+            console.log(itemEditting);
             
             this.setState({
-                id: ItemEditing.id,
-                txtName: ItemEditing.name,
-                txtPrice: ItemEditing.price,
-                chkbStatus: ItemEditing.status
+                id: itemEditting.id,
+                txtName: itemEditting.name,
+                txtPrice: itemEditting.price,
+                chkbStatus: itemEditting.status
             });
         }
     }
 
     onSave = (e) => { //khi bam nut luu lai
         e.preventDefault();
-        let { id, txtName, txtPrice, chkbStatus } = this.state;
-        console.log(id);
+        const { id, txtName, txtPrice, chkbStatus } = this.state;
         
-        let { history } = this.props;
+        const { history } = this.props;
         let product = {
             id: id, //co the la null thi tu dong tang
             name: txtName,
@@ -73,7 +73,7 @@ class ProductActionPage extends React.Component {
     }
 
     render() {
-        let { txtName, txtPrice, chkbStatus } = this.state;
+        const { txtName, txtPrice, chkbStatus } = this.state;
         
         return (
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -125,7 +125,7 @@ class ProductActionPage extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        ItemEditing: state.ItemEditing
+        itemEditting: state.itemEditting
     };
 };
 
