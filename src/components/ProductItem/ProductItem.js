@@ -8,10 +8,10 @@ class ProductItem extends React.Component {
     }
 
     render() {
-        var { product, index } = this.props;
+        let { product, index } = this.props;
 
-        var statusName = product.status ? "Còn hàng" : "Hết hàng";
-        var statusClass = product.status ? "warning" : "default";
+        let statusName = product.status ? "Còn hàng" : "Hết hàng";
+        let statusClass = product.status ? "warning" : "default";
         return (
             <tr>
                 <td>{index + 1}</td>
@@ -27,7 +27,7 @@ class ProductItem extends React.Component {
                     <Link 
                         to={`/product/${product.id}/edit`}
                         type="button" 
-                        className="btn btn-success"
+                        className="btn btn-success mr-10"
                     >
                         Sửa
                     </Link>

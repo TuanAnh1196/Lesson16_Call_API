@@ -1,5 +1,4 @@
 import React from 'react';
-import callApi from './../../utils/apiCaller';
 import { Link } from 'react-router-dom';
 import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from './../../actions/index';
 import { connect } from 'react-redux';
@@ -34,11 +33,13 @@ class ProductActionPage extends React.Component {
             this.props.onEditProduct(id);
         }
     }
-    //nhan props thi goi lycycle
+    //nhan props thi goi lycycle, thuc thi khi nhan 1 props
     componentWillReceiveProps(nextProps) {
         //set state de hien thi du lieu len form
         if (nextProps && nextProps.ItemEditing) {
             let { ItemEditing } = nextProps;
+            console.log(ItemEditing);
+            
             this.setState({
                 id: ItemEditing.id,
                 txtName: ItemEditing.name,
@@ -51,6 +52,8 @@ class ProductActionPage extends React.Component {
     onSave = (e) => { //khi bam nut luu lai
         e.preventDefault();
         let { id, txtName, txtPrice, chkbStatus } = this.state;
+        console.log(id);
+        
         let { history } = this.props;
         let product = {
             id: id, //co the la null thi tu dong tang
@@ -71,6 +74,7 @@ class ProductActionPage extends React.Component {
 
     render() {
         let { txtName, txtPrice, chkbStatus } = this.state;
+        
         return (
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
