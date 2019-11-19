@@ -116,7 +116,7 @@ class ProductActionPage extends React.Component {
                             </label>
                         </div>
                     </div>
-                    <Link to="/product-list" className="btn btn-danger">Trở Lại</Link>
+                    <Link to="/product-list" className="btn btn-danger mr-10">Trở Lại</Link>
                     <button type="submit" className="btn btn-primary">Lưu lại</button>
                 </form>
             </div>

@@ -3,8 +3,8 @@ class ProductList extends React.Component {
     render() {
         return (
             <div className="panel panel-primary">
-                <div className="panel-heading">
-                    <h3 className="panel-title">Danh Sách Sản Phẩm</h3>
+                <div className="panel-heading ">
+                    <h3 className="panel-title ">Danh Sách Sản Phẩm</h3>
                 </div>
                 <div className="panel-body">
 

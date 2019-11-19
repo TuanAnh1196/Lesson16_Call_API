@@ -24,7 +24,7 @@ class ProductListPage extends React.Component {
         const {products} = this.props;
         return (
             <div className="mb-10">
-                <Link to="/product/add" type="button" className="btn btn-info ">
+                <Link to="/product/add" type="button" className="btn btn-info mb-10">
                     Thêm Sản Phẩm
                 </Link>
                 <ProductList>
