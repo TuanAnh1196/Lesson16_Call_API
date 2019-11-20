@@ -21,7 +21,7 @@ const MenuLink = ({label,to,activeOnlyWhenExact}) =>{
             path={to}
             exact={activeOnlyWhenExact}
             children={({match})=>{
-                var active = match? "active" : "";
+                let active = match? "active" : "";
                 return (
                     <li className={active}>
                         <Link to={to}>
@@ -46,7 +46,7 @@ class Menu extends React.Component {
 
     }
     showMenus = (menus)=>{
-        var result = null;
+        let result = null;
         if(menus.length > 0){
             result = menus.map((menu,index)=>{
                 return(
